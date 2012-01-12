@@ -88,8 +88,8 @@ class ValidatePresenceOfMatcherTest < ActiveSupport::TestCase # :nodoc:
       I18n.backend.send :merge_translations, :en, {"activerecord" => {"errors" => {"messages" => {
               "blank" => "{{attribute}} can't be blank"
             }}}}
-      define_model :example, :attr => :string do
-        validates_presence_of :attr
+      define_model :example, :attr_thing => :string do
+        validates_presence_of :attr_thing
       end
       @model = Example.new
     end
@@ -102,7 +102,7 @@ class ValidatePresenceOfMatcherTest < ActiveSupport::TestCase # :nodoc:
 
     should "not raise any error" do
       assert_nothing_raised do
-        assert_accepts validate_presence_of(:attr), @model
+        assert_accepts validate_presence_of(:attr_thing), @model
       end
     end
   end

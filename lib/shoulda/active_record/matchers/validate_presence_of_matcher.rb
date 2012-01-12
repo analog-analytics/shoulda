@@ -30,7 +30,7 @@ module Shoulda # :nodoc:
         def matches?(subject)
           super(subject)
           @expected_message ||= :blank
-          @expected_message = default_error_message(@expected_message, :attribute => @attribute.to_s.capitalize) if @expected_message.kind_of?(Symbol)
+          @expected_message = default_error_message(@expected_message, :attribute => @attribute.to_s.humanize) if @expected_message.kind_of?(Symbol)
           disallows_value_of(blank_value, @expected_message)
         end
 
