@@ -6,8 +6,10 @@ ENV['RAILS_ENV'] = 'test'
 ENV['RAILS_VERSION'] ||= '2.3.8'
 RAILS_GEM_VERSION = ENV['RAILS_VERSION']
 
+$:.unshift File.join(File.dirname(__FILE__))
+
 if ENV['RAILS_VERSION'].to_s =~ /^2/
-  require 'test/rails2_test_helper'
+  require 'rails2_test_helper'
 else
   require 'test/rails3_test_helper'
 end
@@ -29,7 +31,7 @@ class ActiveSupport::TestCase #:nodoc:
   self.use_instantiated_fixtures  = false
 end
 
-require 'test/fail_macros'
+require 'fail_macros'
 
 Shoulda.autoload_macros File.join(File.dirname(__FILE__), 'rails2_root'),
                         File.join("vendor", "{plugins,gems}", "*")
