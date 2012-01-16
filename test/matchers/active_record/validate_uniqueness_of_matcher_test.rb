@@ -26,6 +26,18 @@ class ValidateUniquenessOfMatcherTest < ActiveSupport::TestCase # :nodoc:
       should "fail when a scope is specified" do
         assert_rejects validate_uniqueness_of(:attr).scoped_to(:other), @model
       end
+
+      context "with a I18n translation containing {{attribute}}" do
+        setup do
+          I18n.backend.send :merge_translations, :en, {"activerecord" => {"errors" => {"messages" => {
+            "taken" => "{{attribute}} has already been taken"
+          }}}}
+        end
+
+        should "pass without an error" do
+          assert_accepts validate_uniqueness_of(:attr), @model
+        end
+      end
     end
 
     context "without an existing value" do
@@ -143,5 +155,4 @@ class ValidateUniquenessOfMatcherTest < ActiveSupport::TestCase # :nodoc:
       assert_accepts validate_uniqueness_of(:attr), @model
     end
   end
-
 end

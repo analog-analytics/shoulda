@@ -67,6 +67,7 @@ module Shoulda # :nodoc:
         def matches?(subject)
           @subject = subject.class.new
           @expected_message ||= :taken
+          @expected_message = default_error_message(@expected_message, :attribute => @attribute.to_s.humanize) if @expected_message.kind_of?(Symbol)
           find_existing &&
             set_scoped_attributes &&
             validate_attribute &&
